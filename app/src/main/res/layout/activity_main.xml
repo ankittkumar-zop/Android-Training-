@@ -5,15 +5,131 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="20dp"
+    app:layout_constraintTop_toTopOf="parent"
     tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/userIdLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User ID :"
+        android:padding="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <EditText
+        android:id="@+id/userId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Enter User Id"
+        android:inputType="textPersonName"
+        android:padding="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/userIdLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_default="spread"
+        android:layout_marginStart="8dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/nameLabel"
+        android:text="Name:"
+        android:inputType="textPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/userIdLabel"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:padding="8dp"
+        android:layout_marginTop="20dp" />
 
+    <EditText
+        android:id="@+id/nameId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint=" Enter Name"
+        android:inputType="textPersonName"
+        android:padding="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/userId"
+        app:layout_constraintStart_toEndOf="@id/nameLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_default="spread"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/phoneLabel"
+        android:text="Phone:"
+        android:inputType="phone"
+        app:layout_constraintTop_toBottomOf="@+id/nameId"
+        app:layout_constraintStart_toStartOf="parent"
+        android:padding="8dp"
+        android:layout_marginTop="20dp" />
+
+    <EditText
+        android:id="@+id/phoneId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Enter Phone number"
+        android:inputType="phone"
+        android:padding="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/nameId"
+        app:layout_constraintStart_toEndOf="@id/nameLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_default="spread"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/submit_button"
+        android:text="Add User"
+        android:padding="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/phoneId"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="150dp"/>
+
+    <TextView
+        android:id="@+id/viewUserIdLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter ID to View User:"
+        android:padding="8dp"
+        app:layout_constraintTop_toBottomOf="@id/submit_button"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="32dp" />
+
+    <EditText
+        android:id="@+id/viewUserId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Enter ID"
+        android:inputType="text"
+        android:padding="8dp"
+        app:layout_constraintTop_toBottomOf="@id/submit_button"
+        app:layout_constraintStart_toEndOf="@id/viewUserIdLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintWidth_default="spread" />
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/viewUserButton"
+        android:text="View User"
+        android:padding="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewUserIdLabel"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="150dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
