@@ -5,11 +5,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 
-data class User(var userId: String, var name: String, var phone: String)
-
 class MainActivity : AppCompatActivity() {
 
-     val userList = mutableListOf<User>()
+     val userList = mutableListOf<UserDetailData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

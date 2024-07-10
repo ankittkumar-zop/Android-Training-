@@ -15,6 +15,9 @@ class ViewUserDetailFragment : Fragment() {
     private lateinit var rvAdapter: UserAdapter
     private lateinit var noUserTv: TextView
 
+    private lateinit var userDatabase : UserDetailDatabase
+    private lateinit var userDao : UserDetailDao
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,6 +29,8 @@ class ViewUserDetailFragment : Fragment() {
         val rv:RecyclerView = view.findViewById(R.id.recyclerView)
         rvAdapter = UserAdapter()
         rv.adapter = rvAdapter
+        userDatabase = UserDetailDatabase.getDatabase((activity as MainActivity).applicationContext)
+        userDao = userDatabase.userDetailDao()
 
         addButtonInFragment1.setOnClickListener{
             val mainActivity = activity as? MainActivity
@@ -35,10 +40,10 @@ class ViewUserDetailFragment : Fragment() {
     }
     private fun setData() {
         val mainActivity = activity as? MainActivity
-        noUserTv.isVisible = mainActivity?.userList?.isEmpty() ?: true
-        mainActivity?.userList?.let {
-            rvAdapter.updateData(it)
-        }
+
+        val users = userDao.getDetails()
+        rvAdapter.updateData(users)
+        noUserTv.isVisible = users.isEmpty() ?: true
     }
 
     override fun onResume() {
