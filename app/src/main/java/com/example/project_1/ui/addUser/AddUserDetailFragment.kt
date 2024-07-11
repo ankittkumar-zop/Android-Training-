@@ -1,4 +1,4 @@
-package com.example.project_1
+package com.example.project_1.ui.addUser.addUserFragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,9 +8,18 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.example.project_1.MainActivity
+import com.example.project_1.R
+import com.example.project_1.UserDetailDao
+import com.example.project_1.UserDetailData
+import com.example.project_1.UserDetailDatabase
+import com.example.project_1.ViewUserDetailFragment
 
 
 class AddUserDetailFragment : Fragment() {
+
+    private var userDatabase : UserDetailDatabase? = null
+    private var userDao : UserDetailDao? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,21 +33,23 @@ class AddUserDetailFragment : Fragment() {
         val phoneEditText:EditText = view.findViewById(R.id.edtPhone)
         val addUserbutton: Button = view.findViewById(R.id.btnAddUser)
 
+        userDatabase = UserDetailDatabase.getDatabase((activity as MainActivity).applicationContext)
+        userDao = userDatabase?.userDetailDao()
+
         addUserbutton.setOnClickListener{
             val userId = userIdEditText.text.toString()
             val username = usernameEditText.text.toString()
             val phone = phoneEditText.text.toString()
 
             if(userId.isNotBlank() && username.isNotBlank() && phone.isNotBlank()){
-                val user = User ( userId, username, phone)
-                val mainActivity = activity as? MainActivity
-                mainActivity?.userList?.add(user)
-
+                val user = UserDetailData( userId, username, phone)
+                userDao?.insertUserDetail(user)
                 userIdEditText.text.clear()
                 usernameEditText.text.clear()
                 phoneEditText.text.clear()
                 Toast.makeText(activity, "User Added " ,Toast.LENGTH_SHORT).show()
 
+                val mainActivity = activity as? MainActivity
                 mainActivity?.loadFragment(ViewUserDetailFragment())
             }
             else{

@@ -10,13 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 
 class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
-    private  var users = listOf<User>()
+    private  var users = listOf<UserDetailData>()
     class UserViewHolder (view: View) : RecyclerView.ViewHolder(view.rootView){
         private val sampleUserIdTextView : TextView = view.findViewById(R.id.sampleTxtUserId)
         private val sampleUsernameTextView : TextView = view.findViewById(R.id.sampleTxtusername)
         private val samplePhoneTextView : TextView = view.findViewById(R.id.sampleTxtPhone)
 
-        fun setData(users:User) {
+        fun setData(users:UserDetailData) {
             with(users) {
                 sampleUserIdTextView.text = userId
                 sampleUsernameTextView.text = name
@@ -32,7 +32,7 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
     }
     @SuppressLint("NotifyDataSetChanged")
-    fun updateData(data: List<User>){
+    fun updateData(data: List<UserDetailData>){
         users = data
         notifyDataSetChanged()
     }
