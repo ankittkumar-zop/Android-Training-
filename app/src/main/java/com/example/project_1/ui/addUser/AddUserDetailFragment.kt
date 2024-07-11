@@ -1,4 +1,4 @@
-package com.example.project_1
+package com.example.project_1.ui.addUser.addUserFragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +8,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.example.project_1.MainActivity
+import com.example.project_1.R
+import com.example.project_1.UserDetailDao
+import com.example.project_1.UserDetailData
+import com.example.project_1.UserDetailDatabase
+import com.example.project_1.ViewUserDetailFragment
 
 
 class AddUserDetailFragment : Fragment() {
