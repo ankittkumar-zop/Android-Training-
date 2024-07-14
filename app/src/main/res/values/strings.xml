@@ -17,4 +17,5 @@
     <string name="sample">Sample</string>
     <string name="phoneSample">Phone:</string>
     <string name="_9876543210">9876543210</string>
+    <string name="delete_icon_desc" />
 </resources>

@@ -11,6 +11,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.project_1.data.local.UserDetailDao
+import com.example.project_1.data.local.UserDetailData
 import com.example.project_1.data.local.UserDetailDatabase
 import com.example.project_1.ui.MainActivity
 import com.example.project_1.ui.addUser.addUserFragment.AddUserDetailFragment
@@ -56,6 +57,11 @@ class ViewUserDetailFragment : Fragment() {
     }
     override fun onResume() {
         super.onResume()
+        setData()
+    }
+
+    private fun onDeleteUser(user: UserDetailData) {
+        userDao.deleteUser(user)
         setData()
     }
 }
