@@ -1,4 +1,4 @@
-package com.example.project_1
+package com.example.project_1.data.local
 
 import android.content.Context
 import androidx.room.Database
@@ -15,8 +15,8 @@ abstract class UserDetailDatabase : RoomDatabase(){
         @Volatile
         private var INSTANCE : UserDetailDatabase? = null
 
-        fun getDatabase( context: Context): UserDetailDatabase{
-            return INSTANCE?: synchronized(this){
+        fun getDatabase( context: Context): UserDetailDatabase {
+            return INSTANCE ?: synchronized(this){
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     UserDetailDatabase::class.java,
@@ -27,6 +27,4 @@ abstract class UserDetailDatabase : RoomDatabase(){
             }
         }
     }
-
-
 }

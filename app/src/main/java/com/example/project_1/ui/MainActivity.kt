@@ -1,11 +1,12 @@
-package com.example.project_1
+package com.example.project_1.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.project_1.R
+import com.example.project_1.ViewUserDetailFragment
 import com.example.project_1.data.remote.ApiDataClass
 import com.example.project_1.data.remote.RetrofitObject
 import retrofit2.Call
@@ -14,12 +15,14 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
-     val userList = mutableListOf<UserDetailData>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
+
+        if(savedInstanceState == null ){
+            loadFragment(ViewUserDetailFragment())
+        }
         makeApiCall()
     }
 
