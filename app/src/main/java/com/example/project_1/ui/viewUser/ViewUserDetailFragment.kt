@@ -15,7 +15,8 @@ import com.example.project_1.data.local.UserDetailDao
 import com.example.project_1.data.local.UserDetailDatabase
 import com.example.project_1.ui.MainActivity
 import com.example.project_1.ui.addUser.AddUserDetailFragment
-import com.example.project_1.ui.viewUser.UserAdapter
+import com.example.project_1.ui.showPost.ShowPostFragment
+import com.example.project_1.ui.viewUser.adapter.UserAdapter
 import com.example.project_1.ui.viewUser.ViewUserViewModel
 
 
@@ -32,6 +33,7 @@ class ViewUserDetailFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_view_user_detail, container, false)
         noUserTv = view.findViewById(R.id.txtNoUserFound)
         val addButtonInFragment1:Button = view.findViewById(R.id.btnAdd)
+        val showPostButton:Button = view.findViewById(R.id.btnShowPost)
         val rv:RecyclerView = view.findViewById(R.id.recyclerView)
         rv.layoutManager = LinearLayoutManager(requireContext())
         rvAdapter = UserAdapter(emptyList(), onDeleteClick = { userId ->
@@ -49,6 +51,13 @@ class ViewUserDetailFragment : Fragment() {
             val mainActivity = activity as? MainActivity
             mainActivity?.loadFragment(AddUserDetailFragment())
         }
+
+        showPostButton.setOnClickListener{
+            val mainActivity = activity as? MainActivity
+            mainActivity?.loadFragment(ShowPostFragment())
+        }
+
+
         return view
     }
     private fun setData() {

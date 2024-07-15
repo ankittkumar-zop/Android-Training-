@@ -1,4 +1,4 @@
-package com.example.project_1.ui.viewUser
+package com.example.project_1.ui.viewUser.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

@@ -84,7 +84,8 @@
             android:layout_height="wrap_content"
             android:text="Delete"
             android:layout_marginStart="120dp"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/black"/>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>
