@@ -12,4 +12,7 @@ interface UserDetailDao {
     @Query("SELECT * FROM user_detail_table")
     fun getDetails() : List<UserDetailData>
 
+    @Query("DELETE FROM user_detail_table WHERE userId = :userId")
+    fun deleteUser(userId : String)
+
 }
