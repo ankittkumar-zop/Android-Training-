@@ -1,5 +1,6 @@
 package com.example.project_1.ui.showPost.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,9 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.project_1.R
-import com.example.project_1.data.remote.showPost.ShowPost
 import com.example.project_1.data.remote.showPost.ShowPostData
-import retrofit2.http.POST
 
 class PostAdapter(private var posts : List<ShowPostData>) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
     class PostViewHolder(view : View): RecyclerView.ViewHolder(view.rootView){
@@ -29,7 +28,7 @@ class PostAdapter(private var posts : List<ShowPostData>) : RecyclerView.Adapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.sample_view, parent, false)
+            .inflate(R.layout.show_post_recycler_view, parent, false)
         return PostViewHolder(view)
     }
 
@@ -39,5 +38,12 @@ class PostAdapter(private var posts : List<ShowPostData>) : RecyclerView.Adapter
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         holder.setPost(posts[position])
+    }
+
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateData(newPost : List<ShowPostData>){
+        posts = newPost
+        notifyDataSetChanged()
     }
 }

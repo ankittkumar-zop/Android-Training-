@@ -57,7 +57,6 @@ class ViewUserDetailFragment : Fragment() {
             mainActivity?.loadFragment(ShowPostFragment())
         }
 
-
         return view
     }
     private fun setData() {
