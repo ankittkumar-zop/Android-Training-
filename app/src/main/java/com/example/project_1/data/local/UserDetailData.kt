@@ -1,4 +1,4 @@
-package com.example.project_1
+package com.example.project_1.data.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -7,6 +7,5 @@ import androidx.room.PrimaryKey
 data class UserDetailData(
     @PrimaryKey
     var userId: String,
-
     var name: String,
     var phone: String)

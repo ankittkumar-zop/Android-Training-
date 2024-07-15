@@ -8,8 +8,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.project_1.data.local.UserDetailDao
+import com.example.project_1.data.local.UserDetailDatabase
+import com.example.project_1.ui.MainActivity
 import com.example.project_1.ui.addUser.addUserFragment.AddUserDetailFragment
+import com.example.project_1.ui.viewUser.ViewUserViewModel
 
 
 class ViewUserDetailFragment : Fragment() {
@@ -17,6 +22,7 @@ class ViewUserDetailFragment : Fragment() {
     private lateinit var noUserTv: TextView
     private lateinit var userDatabase : UserDetailDatabase
     private lateinit var userDao : UserDetailDao
+    private lateinit var viewUserViewModel : ViewUserViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,14 +32,19 @@ class ViewUserDetailFragment : Fragment() {
         noUserTv = view.findViewById(R.id.txtNoUserFound)
         val addButtonInFragment1:Button = view.findViewById(R.id.btnAdd)
         val rv:RecyclerView = view.findViewById(R.id.recyclerView)
-        rvAdapter = UserAdapter()
+        rv.layoutManager = LinearLayoutManager(requireContext())
+        rvAdapter = UserAdapter(emptyList())
         rv.adapter = rvAdapter
-        userDatabase = UserDetailDatabase.getDatabase((activity as MainActivity).applicationContext)
+
+        val userDatabase = UserDetailDatabase.getDatabase(requireContext())
         userDao = userDatabase.userDetailDao()
+
+        viewUserViewModel = ViewUserViewModel(userDao)
 
         addButtonInFragment1.setOnClickListener{
             val mainActivity = activity as? MainActivity
             mainActivity?.loadFragment(AddUserDetailFragment())
+//            (activity as MainActivity).loadFragment(AddUserDetailFragment())
         }
         return view
     }

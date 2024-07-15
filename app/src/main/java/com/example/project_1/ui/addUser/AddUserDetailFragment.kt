@@ -8,18 +8,21 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import com.example.project_1.MainActivity
+import androidx.lifecycle.ViewModelProvider
+import com.example.project_1.ui.MainActivity
 import com.example.project_1.R
-import com.example.project_1.UserDetailDao
-import com.example.project_1.UserDetailData
-import com.example.project_1.UserDetailDatabase
+import com.example.project_1.data.local.UserDetailDao
+import com.example.project_1.data.local.UserDetailData
+import com.example.project_1.data.local.UserDetailDatabase
 import com.example.project_1.ViewUserDetailFragment
+import com.example.project_1.ui.addUser.AddUserViewModel
 
 
 class AddUserDetailFragment : Fragment() {
 
     private var userDatabase : UserDetailDatabase? = null
     private var userDao : UserDetailDao? = null
+    private lateinit var addUserViewModel: AddUserViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,14 +39,19 @@ class AddUserDetailFragment : Fragment() {
         userDatabase = UserDetailDatabase.getDatabase((activity as MainActivity).applicationContext)
         userDao = userDatabase?.userDetailDao()
 
+        addUserViewModel = AddUserViewModel(requireActivity().application)
+
         addUserbutton.setOnClickListener{
             val userId = userIdEditText.text.toString()
             val username = usernameEditText.text.toString()
             val phone = phoneEditText.text.toString()
 
+//            val user = UserDetailData( userId , username , phone)
+//            addUserViewModel.addUser(user)
+
             if(userId.isNotBlank() && username.isNotBlank() && phone.isNotBlank()){
                 val user = UserDetailData( userId, username, phone)
-                userDao?.insertUserDetail(user)
+                addUserViewModel.addUser(user)
                 userIdEditText.text.clear()
                 usernameEditText.text.clear()
                 phoneEditText.text.clear()
