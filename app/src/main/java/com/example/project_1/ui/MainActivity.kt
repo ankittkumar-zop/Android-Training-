@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-
         if(savedInstanceState == null ){
             loadFragment(ViewUserDetailFragment())
         }
@@ -32,7 +31,6 @@ class MainActivity : AppCompatActivity() {
         .addToBackStack(null)
         .commit()
     }
-
     private fun makeApiCall(){
         val obj = RetrofitObject().getRetroFitInstance()
         obj.getUsers().enqueue(object : Callback<List<ApiDataClass>> {
@@ -51,6 +49,4 @@ class MainActivity : AppCompatActivity() {
         }
         )
     }
-
-
 }

@@ -7,21 +7,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.project_1.data.local.UserDetailDao
-import com.example.project_1.data.local.UserDetailData
 import com.example.project_1.data.local.UserDetailDatabase
 import com.example.project_1.ui.MainActivity
-import com.example.project_1.ui.addUser.addUserFragment.AddUserDetailFragment
+import com.example.project_1.ui.addUser.AddUserDetailFragment
+import com.example.project_1.ui.viewUser.UserAdapter
 import com.example.project_1.ui.viewUser.ViewUserViewModel
 
 
 class ViewUserDetailFragment : Fragment() {
     private lateinit var rvAdapter: UserAdapter
     private lateinit var noUserTv: TextView
-    private lateinit var userDatabase : UserDetailDatabase
     private lateinit var userDao : UserDetailDao
     private lateinit var viewUserViewModel : ViewUserViewModel
 
@@ -34,34 +34,30 @@ class ViewUserDetailFragment : Fragment() {
         val addButtonInFragment1:Button = view.findViewById(R.id.btnAdd)
         val rv:RecyclerView = view.findViewById(R.id.recyclerView)
         rv.layoutManager = LinearLayoutManager(requireContext())
-        rvAdapter = UserAdapter(emptyList())
+        rvAdapter = UserAdapter(emptyList(), onDeleteClick = { userId ->
+            viewUserViewModel.deleteUserById(userId)
+            setData()
+            Toast.makeText(activity, "User Deleted" , Toast.LENGTH_SHORT).show()
+        })
         rv.adapter = rvAdapter
 
         val userDatabase = UserDetailDatabase.getDatabase(requireContext())
         userDao = userDatabase.userDetailDao()
-
         viewUserViewModel = ViewUserViewModel(userDao)
 
         addButtonInFragment1.setOnClickListener{
             val mainActivity = activity as? MainActivity
             mainActivity?.loadFragment(AddUserDetailFragment())
-//            (activity as MainActivity).loadFragment(AddUserDetailFragment())
         }
         return view
     }
     private fun setData() {
-
         val users = userDao.getDetails()
         rvAdapter.updateData(users)
         noUserTv.isVisible = users.isEmpty()
     }
     override fun onResume() {
         super.onResume()
-        setData()
-    }
-
-    private fun onDeleteUser(user: UserDetailData) {
-        userDao.deleteUser(user)
         setData()
     }
 }
