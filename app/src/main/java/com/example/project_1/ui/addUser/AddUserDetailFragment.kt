@@ -29,9 +29,9 @@ class AddUserDetailFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_add_user_detail, container, false)
 
-        val userIdEditText:EditText = view.findViewById(R.id.edtUserId)
-        val usernameEditText:EditText = view.findViewById(R.id.edtUsername)
-        val phoneEditText:EditText = view.findViewById(R.id.edtPhone)
+        val userIdEditText: EditText = view.findViewById(R.id.edtUserId)
+        val usernameEditText: EditText = view.findViewById(R.id.edtUsername)
+        val phoneEditText: EditText = view.findViewById(R.id.edtPhone)
         val addUserbutton: Button = view.findViewById(R.id.btnAddUser)
 
         userDatabase = UserDetailDatabase.getDatabase((activity as MainActivity).applicationContext)
@@ -43,24 +43,20 @@ class AddUserDetailFragment : Fragment() {
             val userId = userIdEditText.text.toString()
             val username = usernameEditText.text.toString()
             val phone = phoneEditText.text.toString()
+            val isSuccess = addUserViewModel.validateUser(userId, username, phone)
 
-            if(userId.isNotBlank() && username.isNotBlank() && phone.isNotBlank()){
-                val user = UserDetailData( userId, username, phone)
-                addUserViewModel.addUser(user)
+            if(isSuccess){
                 userIdEditText.text.clear()
                 usernameEditText.text.clear()
                 phoneEditText.text.clear()
-                Toast.makeText(activity, "User Added " ,Toast.LENGTH_SHORT).show()
-
-                val mainActivity = activity as? MainActivity
+                Toast.makeText(context, "User Added ", Toast.LENGTH_SHORT).show()
+                val mainActivity= activity as? MainActivity
                 mainActivity?.loadFragment(ViewUserDetailFragment())
             }
             else{
-                Toast.makeText(activity, "All fields required " ,Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "All fields required", Toast.LENGTH_SHORT).show()
             }
         }
         return view
     }
-
-
 }
