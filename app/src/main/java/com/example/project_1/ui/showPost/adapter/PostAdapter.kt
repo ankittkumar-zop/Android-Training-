@@ -11,9 +11,10 @@ import com.bumptech.glide.Glide
 import com.example.project_1.R
 import com.example.project_1.data.remote.showPost.ShowPostData
 
-class PostAdapter(private var posts : List<ShowPostData>) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
-    class PostViewHolder(view : View): RecyclerView.ViewHolder(view.rootView){
+class PostAdapter(private var posts : List<ShowPostData> ): RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
+
+    class PostViewHolder(view : View): RecyclerView.ViewHolder(view.rootView){
         private val itemTitleTextView: TextView = view.findViewById(R.id.titleTextView)
         private val itemPostImageView: ImageView = view.findViewById(R.id.imageView)
 
@@ -47,3 +48,4 @@ class PostAdapter(private var posts : List<ShowPostData>) : RecyclerView.Adapter
         notifyDataSetChanged()
     }
 }
+

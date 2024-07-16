@@ -11,5 +11,4 @@ class AddUserViewModel(application : Application): AndroidViewModel(application)
     fun addUser( user : UserDetailData){
         userDao.insertUserDetail(user)
     }
-
 }
