@@ -1,13 +1,8 @@
 package com.example.project_1.ui.addUser
 
 import android.app.Application
-import android.view.View
-import android.widget.EditText
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
-import com.example.project_1.R
-import com.example.project_1.ViewUserDetailFragment
-import com.example.project_1.data.local.UserDetailData
+import com.example.project_1.data.local.userDetail.UserDetailData
 import com.example.project_1.data.local.UserDetailDatabase
 import com.example.project_1.ui.MainActivity
 

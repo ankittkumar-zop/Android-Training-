@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     }
     private fun makeApiCall(){
         val obj = RetrofitObject().getRetroFitInstance()
-        obj.getUsers().enqueue(object : Callback<List<ApiDataClass>> {
+        obj.getUser().enqueue(object : Callback<List<ApiDataClass>> {
             override fun onResponse(
                 call: Call<List<ApiDataClass>>,
                 response: Response<List<ApiDataClass>>

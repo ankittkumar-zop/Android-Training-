@@ -1,6 +1,7 @@
 package com.example.project_1.ui.showPost.adapter
 
 import android.annotation.SuppressLint
+import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ class PostAdapter(private var posts : List<ShowPostData> ): RecyclerView.Adapter
     class PostViewHolder(view : View): RecyclerView.ViewHolder(view.rootView){
         private val itemTitleTextView: TextView = view.findViewById(R.id.titleTextView)
         private val itemPostImageView: ImageView = view.findViewById(R.id.imageView)
+        private val likeButton: ImageView = view.findViewById(R.id.btnLike)
 
         fun setPost(post: ShowPostData){
             with(post){
@@ -24,7 +26,6 @@ class PostAdapter(private var posts : List<ShowPostData> ): RecyclerView.Adapter
                 Glide.with(itemView.context).load(post.url).into(itemPostImageView)
             }
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {

@@ -10,8 +10,7 @@ import android.widget.EditText
 import android.widget.Toast
 import com.example.project_1.ui.MainActivity
 import com.example.project_1.R
-import com.example.project_1.data.local.UserDetailDao
-import com.example.project_1.data.local.UserDetailData
+import com.example.project_1.data.local.userDetail.UserDetailDao
 import com.example.project_1.data.local.UserDetailDatabase
 import com.example.project_1.ViewUserDetailFragment
 

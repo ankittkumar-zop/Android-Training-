@@ -8,10 +8,10 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.project_1.R
-import com.example.project_1.data.local.UserDetailData
+import com.example.project_1.data.local.userDetail.UserDetailData
 
-class UserAdapter(private  var users : List<UserDetailData> ,
-    private val onDeleteClick: (String) -> Unit) : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
+class UserAdapter(private  var users : List<UserDetailData>,
+                  private val onDeleteClick: (String) -> Unit) : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
     class UserViewHolder (view: View) : RecyclerView.ViewHolder(view.rootView){
         private val sampleUserIdTextView : TextView = view.findViewById(R.id.sampleTxtUserId)
@@ -19,7 +19,7 @@ class UserAdapter(private  var users : List<UserDetailData> ,
         private val samplePhoneTextView : TextView = view.findViewById(R.id.sampleTxtPhone)
         private val sampleDeleteButton : Button = view.findViewById(R.id.btnDeleteUser)
 
-        fun setData(users: UserDetailData , onDeleteClick: (String) -> Unit) {
+        fun setData(users: UserDetailData, onDeleteClick: (String) -> Unit) {
             with(users) {
                 sampleUserIdTextView.text = userId
                 sampleUsernameTextView.text = name
