@@ -31,4 +31,8 @@ class PostRepo(private val apiCall : ApiCall , private val showPostDao: ShowPost
     }
 
     fun liveData(): LiveData<List<ShowPostData>> = showPostDao.getAllPost()
+
+    fun toggle(postId : Int){
+        showPostDao.toggle(postId)
+    }
 }

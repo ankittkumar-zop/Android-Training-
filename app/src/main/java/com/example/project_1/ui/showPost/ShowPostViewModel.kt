@@ -21,4 +21,8 @@ class ShowPostViewModel(private val postRepo : PostRepo) : ViewModel(){
     }
 
     fun liveData() : LiveData<List<ShowPostData>> = postRepo.liveData()
+
+    fun toggle(postId : Int){
+        postRepo.toggle(postId)
+    }
 }

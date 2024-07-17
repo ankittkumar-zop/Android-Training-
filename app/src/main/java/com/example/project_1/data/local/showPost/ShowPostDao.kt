@@ -18,5 +18,7 @@ interface ShowPostDao {
     @Query("SELECT * FROM ShowPostData")
     fun getAllPost() : LiveData<List<ShowPostData>>
 
+    @Query(" UPDATE ShowPostData SET isLiked = NOT isLiked WHERE postId = :postId;")
+    fun toggle(postId : Int)
 
 }

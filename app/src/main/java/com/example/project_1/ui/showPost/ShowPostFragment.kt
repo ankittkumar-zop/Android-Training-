@@ -36,14 +36,16 @@ class ShowPostFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.item_post, container, false)
         val homeButtonItemPost: Button = view.findViewById(R.id.btnHome)
-
         rvShowPost = view.findViewById(R.id.recyclerViewLoadImage)
         rvShowPost.layoutManager = LinearLayoutManager(requireContext())
-        postAdapter = PostAdapter(emptyList())
-        rvShowPost.adapter= postAdapter
         showPostViewModel = ViewModelProvider(this@ShowPostFragment, ShowPostViewModelFactory(
             PostRepo(RetrofitObject().getRetroFitInstance() , UserDetailDatabase.getDatabase(requireContext()).showPostDao())
         )).get(ShowPostViewModel::class.java)
+
+        postAdapter = PostAdapter(emptyList() , onLikeClick = { postId ->
+            showPostViewModel.toggle(postId)
+        })
+        rvShowPost.adapter= postAdapter
 
         showPostViewModel.liveData().observe(viewLifecycleOwner){ posts->
             val updatedPost = posts.filter {  it.title != null && it.url != null }
