@@ -42,7 +42,7 @@ class ShowPostFragment : Fragment() {
             PostRepo(RetrofitObject().getRetroFitInstance() , UserDetailDatabase.getDatabase(requireContext()).showPostDao())
         )).get(ShowPostViewModel::class.java)
 
-        postAdapter = PostAdapter(emptyList() , onLikeClick = { postId ->
+        postAdapter = PostAdapter(requireContext(),emptyList() , onLikeClick = { postId ->
             showPostViewModel.toggle(postId)
         })
         rvShowPost.adapter= postAdapter
