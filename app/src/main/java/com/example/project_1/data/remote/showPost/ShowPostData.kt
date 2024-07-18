@@ -1,8 +1,6 @@
 package com.example.project_1.data.remote.showPost
-
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-
 
 @Entity
 data class ShowPostData(
@@ -10,6 +8,6 @@ data class ShowPostData(
    var postId:Int,
   var title:String?,
    var  url : String?,
-   var id: Int,
+   var id: Int?,
    var isLiked:Boolean = false
 )

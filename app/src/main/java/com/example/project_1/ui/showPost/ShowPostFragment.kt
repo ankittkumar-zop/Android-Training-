@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,14 +13,9 @@ import com.example.project_1.R
 import com.example.project_1.ViewUserDetailFragment
 import com.example.project_1.data.local.UserDetailDatabase
 import com.example.project_1.data.remote.RetrofitObject
-import com.example.project_1.data.remote.showPost.ShowPostData
-import com.example.project_1.data.remote.showPost.ShowPostRetrofitObject
 import com.example.project_1.data.repo.PostRepo
 import com.example.project_1.ui.MainActivity
 import com.example.project_1.ui.showPost.adapter.PostAdapter
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class ShowPostFragment : Fragment() {
 
@@ -58,9 +51,4 @@ class ShowPostFragment : Fragment() {
         }
         return view
     }
-
-
-
-
-
 }

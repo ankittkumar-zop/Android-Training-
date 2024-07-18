@@ -6,8 +6,6 @@ import retrofit2.http.GET
 interface ApiCall  {
     @GET("photos")
     fun getPost() : Call<List<ShowPostData>>
-
     @GET("users")
     fun getUser(): Call<List<ApiDataClass>>
-
 }

@@ -36,7 +36,7 @@ class AddUserDetailFragment : Fragment() {
         userDatabase = UserDetailDatabase.getDatabase((activity as MainActivity).applicationContext)
         userDao = userDatabase?.userDetailDao()
 
-        addUserViewModel = AddUserViewModel(requireActivity().application)
+        addUserViewModel = AddUserViewModel(requireContext())
 
         addUserbutton.setOnClickListener{
             val userId = userIdEditText.text.toString()
