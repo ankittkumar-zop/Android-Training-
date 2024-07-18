@@ -11,13 +11,11 @@ import android.widget.Toast
 import com.example.project_1.ui.MainActivity
 import com.example.project_1.R
 import com.example.project_1.data.local.UserDetailDao
-import com.example.project_1.data.local.UserDetailData
 import com.example.project_1.data.local.UserDetailDatabase
-import com.example.project_1.ViewUserDetailFragment
+import com.example.project_1.ui.viewUser.ViewUserDetailFragment
 
 
 class AddUserDetailFragment : Fragment() {
-
     private var userDatabase : UserDetailDatabase? = null
     private var userDao : UserDetailDao? = null
     private lateinit var addUserViewModel: AddUserViewModel
@@ -26,9 +24,7 @@ class AddUserDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val view = inflater.inflate(R.layout.fragment_add_user_detail, container, false)
-
         val userIdEditText: EditText = view.findViewById(R.id.edtUserId)
         val usernameEditText: EditText = view.findViewById(R.id.edtUsername)
         val phoneEditText: EditText = view.findViewById(R.id.edtPhone)
@@ -36,7 +32,6 @@ class AddUserDetailFragment : Fragment() {
 
         userDatabase = UserDetailDatabase.getDatabase((activity as MainActivity).applicationContext)
         userDao = userDatabase?.userDetailDao()
-
         addUserViewModel = AddUserViewModel(requireActivity().application)
 
         addUserbutton.setOnClickListener{

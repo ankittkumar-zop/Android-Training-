@@ -14,5 +14,4 @@ interface UserDetailDao {
 
     @Query("DELETE FROM user_detail_table WHERE userId = :userId")
     fun deleteUser(userId : String)
-
 }

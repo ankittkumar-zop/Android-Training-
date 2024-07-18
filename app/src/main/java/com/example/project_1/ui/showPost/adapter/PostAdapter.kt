@@ -11,9 +11,8 @@ import com.bumptech.glide.Glide
 import com.example.project_1.R
 import com.example.project_1.data.remote.showPost.ShowPostData
 
-class PostAdapter(private var posts : List<ShowPostData> ): RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
-
-
+class PostAdapter: RecyclerView.Adapter<PostAdapter.PostViewHolder>(){
+    private var posts: List<ShowPostData> = emptyList()
     class PostViewHolder(view : View): RecyclerView.ViewHolder(view.rootView){
         private val itemTitleTextView: TextView = view.findViewById(R.id.titleTextView)
         private val itemPostImageView: ImageView = view.findViewById(R.id.imageView)
@@ -24,9 +23,7 @@ class PostAdapter(private var posts : List<ShowPostData> ): RecyclerView.Adapter
                 Glide.with(itemView.context).load(post.url).into(itemPostImageView)
             }
         }
-
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.show_post_recycler_view, parent, false)
@@ -40,7 +37,6 @@ class PostAdapter(private var posts : List<ShowPostData> ): RecyclerView.Adapter
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         holder.setPost(posts[position])
     }
-
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateData(newPost : List<ShowPostData>){

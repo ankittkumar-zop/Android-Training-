@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     kotlin("kapt")
-
 }
 
 android {
@@ -15,7 +14,6 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -42,13 +40,10 @@ android {
 }
 
 dependencies {
-
     val room_version = "2.6.1"
     implementation(libs.androidx.room.runtime)
     annotationProcessor(libs.androidx.room.compiler)
-
     kapt ("androidx.room:room-compiler:$room_version")
-  
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -63,9 +58,6 @@ dependencies {
     implementation (libs.converter.gson)
     implementation(libs.okhttp)
     implementation (libs.logging.interceptor)
-    implementation ("com.github.bumptech.glide:glide:4.11.0")
-
-    annotationProcessor ("com.github.bumptech.glide:compiler:4.11.0")
-
-
+    implementation (libs.glide)
+    annotationProcessor (libs.compiler)
 }

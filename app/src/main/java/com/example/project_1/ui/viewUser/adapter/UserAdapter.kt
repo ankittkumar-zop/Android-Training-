@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.project_1.R
 import com.example.project_1.data.local.UserDetailData
 
-class UserAdapter(private  var users : List<UserDetailData> ,
-    private val onDeleteClick: (String) -> Unit) : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
+class UserAdapter(private val onDeleteClick: (String) -> Unit) : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
+    private  var users : List<UserDetailData> = emptyList()
     class UserViewHolder (view: View) : RecyclerView.ViewHolder(view.rootView){
         private val sampleUserIdTextView : TextView = view.findViewById(R.id.sampleTxtUserId)
         private val sampleUsernameTextView : TextView = view.findViewById(R.id.sampleTxtusername)

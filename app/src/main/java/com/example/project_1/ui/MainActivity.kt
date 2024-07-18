@@ -6,7 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.project_1.R
-import com.example.project_1.ViewUserDetailFragment
+import com.example.project_1.ui.viewUser.ViewUserDetailFragment
 import com.example.project_1.data.remote.ApiDataClass
 import com.example.project_1.data.remote.RetrofitObject
 import retrofit2.Call

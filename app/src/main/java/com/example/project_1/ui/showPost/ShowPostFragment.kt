@@ -6,24 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.project_1.R
-import com.example.project_1.ViewUserDetailFragment
-import com.example.project_1.data.remote.showPost.ShowPostData
-import com.example.project_1.data.remote.showPost.ShowPostRetrofitObject
+import com.example.project_1.ui.viewUser.ViewUserDetailFragment
 import com.example.project_1.ui.MainActivity
 import com.example.project_1.ui.showPost.adapter.PostAdapter
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class ShowPostFragment : Fragment() {
-
-    private lateinit var postAdapter : PostAdapter
-    private lateinit var rvShowPost : RecyclerView
+    private val postAdapter : PostAdapter by lazy {
+        PostAdapter()
+    }
     private lateinit var showPostViewModel : ShowPostViewModel
 
     override fun onCreateView(
@@ -32,11 +26,10 @@ class ShowPostFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.item_post, container, false)
         val homeButtonItemPost: Button = view.findViewById(R.id.btnHome)
-
-        rvShowPost = view.findViewById(R.id.recyclerViewLoadImage)
-        rvShowPost.layoutManager = LinearLayoutManager(requireContext())
-        postAdapter = PostAdapter(emptyList())
-        rvShowPost.adapter= postAdapter
+        view.findViewById<RecyclerView>(R.id.recyclerViewLoadImage).apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = postAdapter
+        }
         showPostViewModel = ViewModelProvider(this).get(ShowPostViewModel::class.java)
         fetchPost()
 
@@ -51,10 +44,7 @@ class ShowPostFragment : Fragment() {
         showPostViewModel.fetchPosts(
             onResult= { showPostData ->
                 postAdapter.updateData(showPostData)
-
             }
         )
     }
-
-
 }
