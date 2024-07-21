@@ -7,13 +7,13 @@ import androidx.room.Query
 
 @Dao
 interface UserDetailDao {
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertUserDetail(userDetail: UserDetailData)
+    suspend fun insertUserDetail(userDetail: UserDetailData)
 
     @Query("SELECT * FROM user_detail_table")
-    fun getDetails() : List<UserDetailData>
+    suspend fun getDetails(): List<UserDetailData>
 
     @Query("DELETE FROM user_detail_table WHERE userId = :userId")
-    fun deleteUser(userId : String)
-
+    suspend fun deleteUser(userId: String)
 }

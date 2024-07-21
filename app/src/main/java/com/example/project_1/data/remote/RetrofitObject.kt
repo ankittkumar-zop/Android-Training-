@@ -5,12 +5,13 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitObject{
+object RetrofitObject {
 
-    private val baseUrl = "https://jsonplaceholder.typicode.com/"
-    fun getRetroFitInstance(): Retrofit {
+    private const val baseUrl = "https://jsonplaceholder.typicode.com/"
 
-        val loggingInterceptor : HttpLoggingInterceptor= HttpLoggingInterceptor().apply {
+    fun getRetroFitInstance(): ApiCall {
+
+        val loggingInterceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
         val okHttpClient: OkHttpClient = OkHttpClient.Builder()
@@ -22,5 +23,6 @@ class RetrofitObject{
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+            .create(ApiCall::class.java)
     }
 }

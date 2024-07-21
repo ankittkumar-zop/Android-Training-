@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
-    tools:context=".ViewUserDetailFragment">
+    tools:context=".ui.viewUser.ViewUserDetailFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

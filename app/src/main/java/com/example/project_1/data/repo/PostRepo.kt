@@ -7,28 +7,27 @@ import com.example.project_1.data.remote.showPost.ShowPostData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class PostRepo(private val apiCall : ApiCall , private val showPostDao: ShowPostDao){
+class PostRepo(
+    private val apiCall: ApiCall,
+    private val showPostDao: ShowPostDao
+) {
 
-    suspend fun fetchData() : List<ShowPostData>{
-       return withContext(Dispatchers.IO){
-           val response= apiCall.getPost()
-           if (response.isSuccessful){
-               response.body()?.let { posts ->
-                   showPostDao.insertData(posts)
-                   posts
-               }?: emptyList()
-           } else{
-               emptyList()
-           }
-       }
+    fun liveData(): LiveData<List<ShowPostData>> = showPostDao.getAllPost()
+
+    suspend fun fetchData() {
+        withContext(Dispatchers.IO) {
+            val response = apiCall.getPost()
+            if (response.isSuccessful) {
+                response.body()?.let { posts ->
+                    showPostDao.insertData(posts)
+                }
+            }
+        }
     }
 
-    fun observer() = showPostDao.getAllPost()
-
-    suspend fun toggle(postId : Int){
-        withContext(Dispatchers.IO){
+    suspend fun toggle(postId: Int) {
+        withContext(Dispatchers.IO) {
             showPostDao.toggle(postId)
         }
-
     }
 }

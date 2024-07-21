@@ -6,12 +6,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.project_1.R
-import com.example.project_1.ViewUserDetailFragment
-import com.example.project_1.data.remote.ApiDataClass
 import com.example.project_1.data.remote.RetrofitObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.example.project_1.ui.viewUser.ViewUserDetailFragment
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,34 +19,44 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        if(savedInstanceState == null ){
+        if (savedInstanceState == null) {
             loadFragment(ViewUserDetailFragment())
         }
         makeApiCall()
     }
 
-     fun loadFragment( fragment: Fragment){
-       supportFragmentManager.beginTransaction()
-        .replace(R.id.fragmentContainer, fragment)
-        .addToBackStack(null)
-        .commit()
+    fun loadFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainer, fragment)
+            .addToBackStack(null)
+            .commit()
     }
-    private fun makeApiCall(){
-        val obj = RetrofitObject().getRetroFitInstance()
-        obj.getUser().enqueue(object : Callback<List<ApiDataClass>> {
-            override fun onResponse(
-                call: Call<List<ApiDataClass>>,
-                response: Response<List<ApiDataClass>>
-            ){
-                if(response.isSuccessful){
-                    response.body()
-                    Toast.makeText(this@MainActivity, "Success",Toast.LENGTH_LONG).show()
+
+    private fun makeApiCall() {
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = try {
+                RetrofitObject.getRetroFitInstance().getUser()
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@MainActivity, " Failed to fetch", Toast.LENGTH_SHORT).show()
+                }
+                return@launch
+            }
+
+            if (response.isSuccessful) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@MainActivity, "Success", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Error: ${response.message()}",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
-            override fun onFailure(call: Call<List<ApiDataClass>>, t: Throwable) {
-                Toast.makeText(this@MainActivity, "failure",Toast.LENGTH_LONG).show()
-            }
         }
-        )
     }
 }

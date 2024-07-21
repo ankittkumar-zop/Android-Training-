@@ -1,26 +1,31 @@
 package com.example.project_1.ui.showPost
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.project_1.data.remote.showPost.ShowPostData
 import com.example.project_1.data.repo.PostRepo
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class ShowPostViewModel(private val postRepo : PostRepo) : ViewModel(){
+class ShowPostViewModel(private val postRepo: PostRepo) : ViewModel() {
 
-    val posts = postRepo.observer()
+    val posts: LiveData<List<ShowPostData>> = postRepo.liveData()
 
-    fun fetchPost(onResult: (List<ShowPostData>) -> Unit ){
+    fun fetchPost() {
         viewModelScope.launch {
-            val data = postRepo.fetchData()
-            onResult(data)
+            val data = withContext(Dispatchers.IO) {
+                postRepo.fetchData()
+            }
         }
     }
 
-    fun toggle(postId : Int){
+    fun toggleLike(postId: Int) {
         viewModelScope.launch {
-            postRepo.toggle(postId)
+            withContext(Dispatchers.IO) {
+                postRepo.toggle(postId)
+            }
         }
     }
 }
