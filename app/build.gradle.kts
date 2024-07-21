@@ -60,4 +60,8 @@ dependencies {
     implementation (libs.logging.interceptor)
     implementation (libs.glide)
     annotationProcessor (libs.compiler)
+    implementation (libs.kotlinx.coroutines.core)
+    implementation (libs.kotlinx.coroutines.android)
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
 }

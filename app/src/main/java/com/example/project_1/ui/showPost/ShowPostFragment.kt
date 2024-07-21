@@ -19,7 +19,6 @@ import com.example.project_1.ui.showPost.adapter.PostAdapter
 
 class ShowPostFragment : Fragment() {
 
-    private lateinit var postAdapter : PostAdapter
     private lateinit var rvShowPost : RecyclerView
     private lateinit var showPostViewModel : ShowPostViewModel
 

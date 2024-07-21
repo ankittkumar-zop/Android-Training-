@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class RetrofitObject{
 
     private val baseUrl = "https://jsonplaceholder.typicode.com/"
-    fun getRetroFitInstance(): ApiCall {
+    fun getRetroFitInstance(): Retrofit {
 
         val loggingInterceptor : HttpLoggingInterceptor= HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
@@ -22,6 +22,5 @@ class RetrofitObject{
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(ApiCall::class.java)
     }
 }

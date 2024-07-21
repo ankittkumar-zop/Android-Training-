@@ -4,35 +4,31 @@ import androidx.lifecycle.LiveData
 import com.example.project_1.data.local.showPost.ShowPostDao
 import com.example.project_1.data.remote.ApiCall
 import com.example.project_1.data.remote.showPost.ShowPostData
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class PostRepo(private val apiCall : ApiCall , private val showPostDao: ShowPostDao){
 
-    fun fetchData(){
-        val posts = apiCall.getPost()
-        posts.enqueue(object : Callback<List<ShowPostData>>{
-            override fun onResponse(
-                call: Call<List<ShowPostData>>,
-                response: Response<List<ShowPostData>>
-            ) {
-                if(response.isSuccessful){
-                    response.body()?.let { posts ->
-                        showPostDao.insertData(posts)
-                    }
-                }
-            }
-            override fun onFailure(call: Call<List<ShowPostData>>, t: Throwable) {
-
-            }
-
-        })
+    suspend fun fetchData() : List<ShowPostData>{
+       return withContext(Dispatchers.IO){
+           val response= apiCall.getPost()
+           if (response.isSuccessful){
+               response.body()?.let { posts ->
+                   showPostDao.insertData(posts)
+                   posts
+               }?: emptyList()
+           } else{
+               emptyList()
+           }
+       }
     }
 
-    fun liveData(): LiveData<List<ShowPostData>> = showPostDao.getAllPost()
+    fun observer() = showPostDao.getAllPost()
 
-    fun toggle(postId : Int){
-        showPostDao.toggle(postId)
+    suspend fun toggle(postId : Int){
+        withContext(Dispatchers.IO){
+            showPostDao.toggle(postId)
+        }
+
     }
 }
