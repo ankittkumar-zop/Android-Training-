@@ -1,8 +1,8 @@
 package com.example.project_1.di
 
 import android.content.Context
-import androidx.room.Room
 import com.example.project_1.data.local.UserDetailDatabase
+import com.example.project_1.data.local.showPost.ShowPostDao
 import com.example.project_1.data.local.userDetail.UserDetailDao
 import dagger.Module
 import dagger.Provides
@@ -17,16 +17,19 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(@ApplicationContext context: Context) : UserDetailDatabase{
-        return Room.databaseBuilder(
-            context.applicationContext,
-            UserDetailDatabase::class.java,
-            "user_detail_database"
-        ).build()
+    fun provideUserDetailDatabase(@ApplicationContext context: Context): UserDetailDatabase {
+        return UserDetailDatabase.getDatabase(context)
     }
 
     @Provides
-    fun provideUserDetailDao(database: UserDetailDatabase) : UserDetailDao{
+    @Singleton
+    fun provideUserDetailDao(database: UserDetailDatabase): UserDetailDao {
         return database.userDetailDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideShowPostDao(database: UserDetailDatabase): ShowPostDao {
+        return database.showPostDao()
     }
 }

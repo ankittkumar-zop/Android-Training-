@@ -10,8 +10,7 @@ import com.example.project_1.R
 import com.example.project_1.data.local.userDetail.UserDetailData
 
 class UserAdapter(
-    private var users: List<UserDetailData>,
-    private val onDeleteClick: (String) -> Unit
+    private var users: List<UserDetailData>, private val onDeleteClick: (String) -> Unit
 ) : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
     class UserViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -31,8 +30,7 @@ class UserAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.sample_view, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.sample_view, parent, false)
         return UserViewHolder(view)
     }
 

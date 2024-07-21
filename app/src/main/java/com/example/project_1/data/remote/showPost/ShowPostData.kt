@@ -3,7 +3,7 @@ package com.example.project_1.data.remote.showPost
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(tableName = "show_post_table")
 data class ShowPostData(
     @PrimaryKey(autoGenerate = true)
     var postId: Int,

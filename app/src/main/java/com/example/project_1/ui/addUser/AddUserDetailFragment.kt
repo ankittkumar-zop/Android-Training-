@@ -8,18 +8,19 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.example.project_1.R
 import com.example.project_1.ui.MainActivity
 import com.example.project_1.ui.viewUser.ViewUserDetailFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class AddUserDetailFragment : Fragment() {
 
-    private lateinit var addUserViewModel: AddUserViewModel
+    private val addUserViewModel: AddUserViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_add_user_detail, container, false)
@@ -28,8 +29,6 @@ class AddUserDetailFragment : Fragment() {
         val usernameEditText: EditText = view.findViewById(R.id.edtUsername)
         val phoneEditText: EditText = view.findViewById(R.id.edtPhone)
         val addUserButton: Button = view.findViewById(R.id.btnAddUser)
-
-        addUserViewModel = AddUserViewModel(requireContext())
 
         addUserButton.setOnClickListener {
             val userId = userIdEditText.text.toString()

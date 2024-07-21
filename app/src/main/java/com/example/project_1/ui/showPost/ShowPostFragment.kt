@@ -16,8 +16,10 @@ import com.example.project_1.data.repo.PostRepo
 import com.example.project_1.ui.MainActivity
 import com.example.project_1.ui.showPost.adapter.PostAdapter
 import com.example.project_1.ui.viewUser.ViewUserDetailFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class ShowPostFragment : Fragment() {
 
     private lateinit var rvShowPost: RecyclerView
@@ -25,8 +27,7 @@ class ShowPostFragment : Fragment() {
     private lateinit var postAdapter: PostAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
 
         val view = inflater.inflate(R.layout.item_post, container, false)
@@ -39,8 +40,8 @@ class ShowPostFragment : Fragment() {
             RetrofitObject.getRetroFitInstance(),
             UserDetailDatabase.getDatabase(requireContext()).showPostDao()
         )
-        showPostViewModel = ShowPostViewModel(postRepo)
 
+        showPostViewModel = ShowPostViewModel(postRepo)
         postAdapter = PostAdapter(requireContext(), emptyList()) { postId ->
             showPostViewModel.toggleLike(postId)
         }
@@ -60,7 +61,6 @@ class ShowPostFragment : Fragment() {
         lifecycleScope.launch {
             showPostViewModel.fetchPost()
         }
-
         return view
     }
 }

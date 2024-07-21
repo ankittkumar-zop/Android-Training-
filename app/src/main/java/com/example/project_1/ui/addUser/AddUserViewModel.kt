@@ -1,19 +1,21 @@
 package com.example.project_1.ui.addUser
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.project_1.data.local.UserDetailDatabase
+import com.example.project_1.data.local.userDetail.UserDetailDao
 import com.example.project_1.data.local.userDetail.UserDetailData
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class AddUserViewModel(context: Context) : ViewModel() {
-    private val userDao = UserDetailDatabase.getDatabase(context).userDetailDao()
+@HiltViewModel
+class AddUserViewModel @Inject constructor(
+    private val userDao: UserDetailDao
+) : ViewModel() {
 
     fun validateUser(userId: String, username: String, phone: String, onResult: (Boolean) -> Unit) {
-
         viewModelScope.launch {
             val isSuccess =
                 if (userId.isNotBlank() && username.isNotBlank() && phone.isNotBlank()) {

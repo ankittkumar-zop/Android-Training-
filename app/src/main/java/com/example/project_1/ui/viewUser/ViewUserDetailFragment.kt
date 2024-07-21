@@ -17,16 +17,16 @@ import com.example.project_1.ui.MainActivity
 import com.example.project_1.ui.addUser.AddUserDetailFragment
 import com.example.project_1.ui.showPost.ShowPostFragment
 import com.example.project_1.ui.viewUser.adapter.UserAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class ViewUserDetailFragment : Fragment() {
     private lateinit var rvAdapter: UserAdapter
     private lateinit var noUserTv: TextView
     private lateinit var viewUserViewModel: ViewUserViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_view_user_detail, container, false)
