@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     kotlin("kapt")
+    id ("com.google.dagger.hilt.android")
 }
 android {
     namespace = "com.example.project_1"
@@ -64,4 +65,7 @@ dependencies {
     implementation (libs.kotlinx.coroutines.android)
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
     implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
+    implementation ("com.google.dagger:hilt-android:2.46.1")
+    kapt ("com.google.dagger:hilt-compiler:2.46.1")
+
 }

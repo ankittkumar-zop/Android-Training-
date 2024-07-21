@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.project_1.R
 import com.example.project_1.data.local.UserDetailDatabase
-import com.example.project_1.data.local.userDetail.UserDetailDao
 import com.example.project_1.ui.MainActivity
 import com.example.project_1.ui.addUser.AddUserDetailFragment
 import com.example.project_1.ui.showPost.ShowPostFragment
