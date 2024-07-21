@@ -8,7 +8,6 @@ import androidx.room.RoomDatabase
 @Database(entities = [UserDetailData::class] , version = 1 )
 
 abstract class UserDetailDatabase : RoomDatabase(){
-
     abstract fun userDetailDao() : UserDetailDao
 
     companion object{
@@ -21,7 +20,7 @@ abstract class UserDetailDatabase : RoomDatabase(){
                     context.applicationContext,
                     UserDetailDatabase::class.java,
                     "user_detail_database"
-                ).allowMainThreadQueries().build()
+                ).allowMainThreadQueries().fallbackToDestructiveMigration().build()
                 INSTANCE = instance
                 instance
             }
