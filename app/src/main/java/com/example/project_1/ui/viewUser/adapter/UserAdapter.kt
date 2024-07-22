@@ -10,44 +10,40 @@ import com.example.project_1.R
 import com.example.project_1.data.local.userDetail.UserDetailData
 
 class UserAdapter(
-    private var users: List<UserDetailData>,
-    private val onDeleteClick: (String) -> Unit
+    private var users: List<UserDetailData>, private val onDeleteClick: (String) -> Unit
 ) : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
-    class UserViewHolder(view: View) : RecyclerView.ViewHolder(view.rootView) {
-        private val sampleUserIdTextView: TextView = view.findViewById(R.id.sampleTxtUserId)
-        private val sampleUsernameTextView: TextView = view.findViewById(R.id.sampleTxtusername)
-        private val samplePhoneTextView: TextView = view.findViewById(R.id.sampleTxtPhone)
-        private val sampleDeleteButton: Button = view.findViewById(R.id.btnDeleteUser)
+    class UserViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val userIdTextView: TextView = view.findViewById(R.id.sampleTxtUserId)
+        private val usernameTextView: TextView = view.findViewById(R.id.sampleTxtusername)
+        private val phoneTextView: TextView = view.findViewById(R.id.sampleTxtPhone)
+        private val deleteButton: Button = view.findViewById(R.id.btnDeleteUser)
 
-        fun setData(users: UserDetailData, onDeleteClick: (String) -> Unit) {
-            with(users) {
-                sampleUserIdTextView.text = userId
-                sampleUsernameTextView.text = name
-                samplePhoneTextView.text = phone
-                sampleDeleteButton.setOnClickListener {
-                    onDeleteClick(users.userId)
-                }
+        fun setData(user: UserDetailData, onDeleteClick: (String) -> Unit) {
+            userIdTextView.text = user.userId
+            usernameTextView.text = user.name
+            phoneTextView.text = user.phone
+            deleteButton.setOnClickListener {
+                onDeleteClick(user.userId)
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.sample_view, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.sample_view, parent, false)
         return UserViewHolder(view)
     }
 
-    fun updateData(data: List<UserDetailData>) {
-        users = data
-        notifyDataSetChanged()
+    override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
+        holder.setData(users[position], onDeleteClick)
     }
 
     override fun getItemCount(): Int {
         return users.size
     }
 
-    override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-        holder.setData(users[position], onDeleteClick)
+    fun updateData(newUsers: List<UserDetailData>) {
+        users = newUsers
+        notifyDataSetChanged()
     }
 }

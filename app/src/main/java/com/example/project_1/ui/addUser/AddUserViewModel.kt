@@ -10,7 +10,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class AddUserViewModel(context: Context) : ViewModel() {
-
     private val userDao = UserDetailDatabase.getDatabase(context).userDetailDao()
 
     fun validateUser(userId: String, username: String, phone: String, onResult: (Boolean) -> Unit) {
@@ -30,8 +29,6 @@ class AddUserViewModel(context: Context) : ViewModel() {
         }
     }
 }
-
-
 
 
 
