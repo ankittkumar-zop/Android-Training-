@@ -8,21 +8,22 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PostRepo(private val apiCall : ApiCall , private val showPostDao: ShowPostDao){
+class PostRepo(private val apiCall: ApiCall, private val showPostDao: ShowPostDao) {
 
-    fun fetchData(){
+    fun fetchData() {
         val posts = apiCall.getPost()
-        posts.enqueue(object : Callback<List<ShowPostData>>{
+        posts.enqueue(object : Callback<List<ShowPostData>> {
             override fun onResponse(
                 call: Call<List<ShowPostData>>,
                 response: Response<List<ShowPostData>>
             ) {
-                if(response.isSuccessful){
+                if (response.isSuccessful) {
                     response.body()?.let { posts ->
                         showPostDao.insertData(posts)
                     }
                 }
             }
+
             override fun onFailure(call: Call<List<ShowPostData>>, t: Throwable) {
 
             }
@@ -32,7 +33,7 @@ class PostRepo(private val apiCall : ApiCall , private val showPostDao: ShowPost
 
     fun liveData(): LiveData<List<ShowPostData>> = showPostDao.getAllPost()
 
-    fun toggle(postId : Int){
+    fun toggle(postId: Int) {
         showPostDao.toggle(postId)
     }
 }

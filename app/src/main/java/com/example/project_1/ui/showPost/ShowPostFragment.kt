@@ -10,18 +10,18 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.project_1.R
-import com.example.project_1.ViewUserDetailFragment
 import com.example.project_1.data.local.UserDetailDatabase
 import com.example.project_1.data.remote.RetrofitObject
 import com.example.project_1.data.repo.PostRepo
 import com.example.project_1.ui.MainActivity
 import com.example.project_1.ui.showPost.adapter.PostAdapter
+import com.example.project_1.ui.viewUser.ViewUserDetailFragment
 
 class ShowPostFragment : Fragment() {
 
     private lateinit var postAdapter : PostAdapter
-    private lateinit var rvShowPost : RecyclerView
     private lateinit var showPostViewModel : ShowPostViewModel
+    private lateinit var rvShowPost : RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +29,7 @@ class ShowPostFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.item_post, container, false)
         val homeButtonItemPost: Button = view.findViewById(R.id.btnHome)
+
         rvShowPost = view.findViewById(R.id.recyclerViewLoadImage)
         rvShowPost.layoutManager = LinearLayoutManager(requireContext())
         showPostViewModel = ViewModelProvider(this@ShowPostFragment, ShowPostViewModelFactory(

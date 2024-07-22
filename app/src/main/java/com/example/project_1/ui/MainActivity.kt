@@ -6,7 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.project_1.R
-import com.example.project_1.ViewUserDetailFragment
+import com.example.project_1.ui.viewUser.ViewUserDetailFragment
 import com.example.project_1.data.remote.ApiDataClass
 import com.example.project_1.data.remote.RetrofitObject
 import retrofit2.Call
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     }
     private fun makeApiCall(){
         val obj = RetrofitObject().getRetroFitInstance()
-        obj.getUser().enqueue(object : Callback<List<ApiDataClass>> {
+        obj.getUsers().enqueue(object : Callback<List<ApiDataClass>> {
             override fun onResponse(
                 call: Call<List<ApiDataClass>>,
                 response: Response<List<ApiDataClass>>
