@@ -2,7 +2,7 @@ package com.example.project_1.ui.addUser
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
-import com.example.project_1.data.local.UserDetailData
+import com.example.project_1.data.local.userDetail.UserDetailData
 import com.example.project_1.data.local.UserDetailDatabase
 
 class AddUserViewModel(context: Context): ViewModel() {

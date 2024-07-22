@@ -12,21 +12,20 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.project_1.data.local.userDetail.UserDetailDao
 import com.example.project_1.R
-import com.example.project_1.data.local.UserDetailDao
 import com.example.project_1.data.local.UserDetailDatabase
 import com.example.project_1.ui.MainActivity
 import com.example.project_1.ui.addUser.AddUserDetailFragment
 import com.example.project_1.ui.showPost.ShowPostFragment
 import com.example.project_1.ui.viewUser.adapter.UserAdapter
 
-
 class ViewUserDetailFragment : Fragment() {
     private lateinit var noUserTv: TextView
     private lateinit var userDao : UserDetailDao
     private lateinit var viewUserViewModel : ViewUserViewModel
     private val rvAdapter : UserAdapter by lazy {
-        UserAdapter(onDeleteClick = {userId ->
+        UserAdapter(emptyList(), onDeleteClick = { userId ->
             viewUserViewModel.deleteUserById(userId)
             setData()
             Toast.makeText(activity, "User Deleted" , Toast.LENGTH_SHORT).show()

@@ -4,11 +4,15 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.project_1.data.local.showPost.ShowPostDao
+import com.example.project_1.data.local.userDetail.UserDetailDao
+import com.example.project_1.data.local.userDetail.UserDetailData
+import com.example.project_1.data.remote.showPost.ShowPostData
 
-@Database(entities = [UserDetailData::class] , version = 1 )
-
+@Database(entities = [UserDetailData::class,ShowPostData::class], version = 6)
 abstract class UserDetailDatabase : RoomDatabase(){
     abstract fun userDetailDao() : UserDetailDao
+    abstract fun showPostDao() : ShowPostDao
 
     companion object{
         @Volatile

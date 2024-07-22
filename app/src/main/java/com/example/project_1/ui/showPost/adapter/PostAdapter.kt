@@ -1,29 +1,29 @@
 package com.example.project_1.ui.showPost.adapter
 
-import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.project_1.R
 import com.example.project_1.data.remote.showPost.ShowPostData
 
-class PostAdapter: RecyclerView.Adapter<PostAdapter.PostViewHolder>(){
-    private var posts: List<ShowPostData> = emptyList()
-    class PostViewHolder(view : View): RecyclerView.ViewHolder(view.rootView){
-        private val itemTitleTextView: TextView = view.findViewById(R.id.titleTextView)
-        private val itemPostImageView: ImageView = view.findViewById(R.id.imageView)
+class PostAdapter(
+    private val context: Context,
+    private var posts: List<ShowPostData>,
+    private val onLikeClick: (Int) -> Unit
+) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
-        fun setPost(post: ShowPostData){
-            with(post){
-                itemTitleTextView.text = title
-                Glide.with(itemView.context).load(post.url).into(itemPostImageView)
-            }
-        }
+    class PostViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val itemTitleTextView: TextView = view.findViewById(R.id.titleTextView)
+        val itemPostImageView: ImageView = view.findViewById(R.id.imageView)
+        val likeButton: ImageView = view.findViewById(R.id.btnLike)
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.show_post_recycler_view, parent, false)
@@ -35,11 +35,21 @@ class PostAdapter: RecyclerView.Adapter<PostAdapter.PostViewHolder>(){
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        holder.setPost(posts[position])
+        val current = posts[position]
+        holder.itemTitleTextView.text = current.title
+        Glide.with(holder.itemView.context).load(current.url).into(holder.itemPostImageView)
+        holder.likeButton.setImageDrawable(
+            ContextCompat.getDrawable(
+                context,
+                if (current.isLiked) R.drawable.liked_icon else R.drawable.ic_favourite_button
+            )
+        )
+        holder.likeButton.setOnClickListener {
+            onLikeClick(current.postId)
+        }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun updateData(newPost : List<ShowPostData>){
+    fun updateData(newPost: List<ShowPostData>) {
         posts = newPost
         notifyDataSetChanged()
     }

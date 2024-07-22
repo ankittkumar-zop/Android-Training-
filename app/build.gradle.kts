@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     kotlin("kapt")
 }
-
 android {
     namespace = "com.example.project_1"
     compileSdk = 34
