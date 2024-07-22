@@ -9,22 +9,23 @@ import com.example.project_1.data.local.userDetail.UserDetailDao
 import com.example.project_1.data.local.userDetail.UserDetailData
 import com.example.project_1.data.remote.showPost.ShowPostData
 
-@Database(entities = [UserDetailData::class,ShowPostData::class], version = 6)
-abstract class UserDetailDatabase : RoomDatabase(){
-    abstract fun userDetailDao() : UserDetailDao
-    abstract fun showPostDao() : ShowPostDao
+@Database(entities = [UserDetailData::class, ShowPostData::class], version = 6)
+abstract class UserDetailDatabase : RoomDatabase() {
 
-    companion object{
+    abstract fun userDetailDao(): UserDetailDao
+    abstract fun showPostDao(): ShowPostDao
+
+    companion object {
         @Volatile
-        private var INSTANCE : UserDetailDatabase? = null
+        private var INSTANCE: UserDetailDatabase? = null
 
-        fun getDatabase( context: Context): UserDetailDatabase {
-            return INSTANCE ?: synchronized(this){
+        fun getDatabase(context: Context): UserDetailDatabase {
+            return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     UserDetailDatabase::class.java,
                     "user_detail_database"
-                ).allowMainThreadQueries().fallbackToDestructiveMigration().build()
+                ).fallbackToDestructiveMigration().build()
                 INSTANCE = instance
                 instance
             }
