@@ -19,7 +19,7 @@ class PostAdapter(private val context : Context, private var posts : List<ShowPo
 
     class PostViewHolder(view : View): RecyclerView.ViewHolder(view){
          val itemTitleTextView: TextView = view.findViewById(R.id.titleTextView)
-         val itemPostImageView: ImageView = view.findViewById(R.id.imageView)
+         val itemPostImageView: ImageView = viwqew.findViewById(R.id.imageView)
          val likeButton: ImageView = view.findViewById(R.id.btnLike)
     }
 
