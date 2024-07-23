@@ -13,9 +13,9 @@ interface ShowPostDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertData(showPostData: List<ShowPostData>)
 
-    @Query("SELECT * FROM ShowPostData")
+    @Query("SELECT * FROM show_post_table")
     fun getAllPost(): LiveData<List<ShowPostData>>
 
-    @Query(" UPDATE ShowPostData SET isLiked = NOT isLiked WHERE postId = :postId;")
+    @Query(" UPDATE show_post_table SET isLiked = NOT isLiked WHERE postId = :postId;")
     suspend fun toggle(postId: Int)
 }

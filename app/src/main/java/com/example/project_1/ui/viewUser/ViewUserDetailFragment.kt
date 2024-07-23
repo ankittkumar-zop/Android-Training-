@@ -9,51 +9,63 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.project_1.R
-import com.example.project_1.data.local.UserDetailDatabase
 import com.example.project_1.ui.MainActivity
 import com.example.project_1.ui.addUser.AddUserDetailFragment
 import com.example.project_1.ui.showPost.ShowPostFragment
 import com.example.project_1.ui.viewUser.adapter.UserAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class ViewUserDetailFragment : Fragment() {
-    private lateinit var noUserTv: TextView
-    private lateinit var viewUserViewModel: ViewUserViewModel
+
+    private val viewUserViewModel: ViewUserViewModel by viewModels()
     private lateinit var rvAdapter: UserAdapter
+    private lateinit var noUserTv: TextView
+    private lateinit var addUserButton: Button
+    private lateinit var showPostButton: Button
+    private lateinit var rv: RecyclerView
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
 
-        val view = inflater.inflate(R.layout.fragment_view_user_detail, container, false)
-        noUserTv = view.findViewById(R.id.txtNoUserFound)
-        val addButtonInFragment1: Button = view.findViewById(R.id.btnAdd)
-        val showPostButton: Button = view.findViewById(R.id.btnShowPost)
-        val rv: RecyclerView = view.findViewById(R.id.recyclerView)
+        return inflater.inflate(R.layout.fragment_view_user_detail, container, false)
+    }
 
-        rv.layoutManager = LinearLayoutManager(requireContext())
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initializeViews(view)
+        setupRecyclerView()
+        settingUpClickListener()
+        loadUserData()
+        observerViewModel()
+    }
+
+    private fun observerViewModel() {
+        viewUserViewModel.allUsers.observe(viewLifecycleOwner) { users ->
+            rvAdapter.updateData(users)
+            noUserTv.isVisible = users.isEmpty()
+        }
+    }
+
+    private fun setupRecyclerView() {
 
         rvAdapter = UserAdapter(emptyList(), onDeleteClick = { userId ->
             viewUserViewModel.deleteUserById(userId)
             loadUserData()
             Toast.makeText(activity, "User Deleted", Toast.LENGTH_SHORT).show()
         })
+        rv.layoutManager = LinearLayoutManager(requireContext())
         rv.adapter = rvAdapter
+    }
 
-        view.findViewById<RecyclerView>(R.id.recyclerView).apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = rvAdapter
-        }
-
-        val userDatabase = UserDetailDatabase.getDatabase(requireContext())
-        val userDao = userDatabase.userDetailDao()
-        viewUserViewModel = ViewUserViewModel(userDao)
-
-        addButtonInFragment1.setOnClickListener {
+    private fun settingUpClickListener() {
+        addUserButton.setOnClickListener {
             val mainActivity = activity as? MainActivity
             mainActivity?.loadFragment(AddUserDetailFragment())
         }
@@ -62,21 +74,16 @@ class ViewUserDetailFragment : Fragment() {
             val mainActivity = activity as? MainActivity
             mainActivity?.loadFragment(ShowPostFragment())
         }
+    }
 
-        loadUserData()
-
-        return view
+    private fun initializeViews(view: View) {
+        noUserTv = view.findViewById(R.id.txtNoUserFound)
+        addUserButton = view.findViewById(R.id.btnAdd)
+        showPostButton = view.findViewById(R.id.btnShowPost)
+        rv = view.findViewById(R.id.recyclerView)
     }
 
     private fun loadUserData() {
-        viewUserViewModel.getAllUsers { users ->
-            rvAdapter.updateData(users)
-            noUserTv.isVisible = users.isEmpty()
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        loadUserData()
+        viewUserViewModel.getAllUsers()
     }
 }

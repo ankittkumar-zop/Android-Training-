@@ -6,10 +6,10 @@ import com.example.project_1.data.remote.ApiCall
 import com.example.project_1.data.remote.showPost.ShowPostData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class PostRepo(
-    private val apiCall: ApiCall,
-    private val showPostDao: ShowPostDao
+class PostRepo @Inject constructor(
+    private val apiCall: ApiCall, private val showPostDao: ShowPostDao
 ) {
 
     fun liveData(): LiveData<List<ShowPostData>> = showPostDao.getAllPost()

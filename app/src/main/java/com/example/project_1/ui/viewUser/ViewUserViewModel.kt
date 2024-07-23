@@ -1,17 +1,26 @@
 package com.example.project_1.ui.viewUser
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.project_1.data.local.userDetail.UserDetailDao
 import com.example.project_1.data.local.userDetail.UserDetailData
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ViewUserViewModel(private val userDao: UserDetailDao) : ViewModel() {
+@HiltViewModel
+class ViewUserViewModel @Inject constructor(
+    private val userDao: UserDetailDao
+) : ViewModel() {
 
-    fun getAllUsers(onResult: (List<UserDetailData>) -> Unit) {
+    private val _allUsers = MutableLiveData<List<UserDetailData>>()
+    val allUsers: LiveData<List<UserDetailData>> get() = _allUsers
+
+    fun getAllUsers() {
         viewModelScope.launch {
-            val users = userDao.getDetails()
-            onResult(users)
+            _allUsers.postValue(userDao.getDetails())
         }
     }
 
