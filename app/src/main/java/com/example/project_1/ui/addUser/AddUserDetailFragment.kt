@@ -18,18 +18,33 @@ import dagger.hilt.android.AndroidEntryPoint
 class AddUserDetailFragment : Fragment() {
 
     private val addUserViewModel: AddUserViewModel by viewModels()
+    private lateinit var userIdEditText: EditText
+    private lateinit var usernameEditText: EditText
+    private lateinit var phoneEditText: EditText
+    private lateinit var addUserButton: Button
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
+        return inflater.inflate(R.layout.fragment_add_user_detail, container, false)
+    }
 
-        val view = inflater.inflate(R.layout.fragment_add_user_detail, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val userIdEditText: EditText = view.findViewById(R.id.edtUserId)
-        val usernameEditText: EditText = view.findViewById(R.id.edtUsername)
-        val phoneEditText: EditText = view.findViewById(R.id.edtPhone)
-        val addUserButton: Button = view.findViewById(R.id.btnAddUser)
+        initializer(view)
+        handleUser(view)
+    }
 
+    private fun initializer(view: View) {
+        userIdEditText = view.findViewById(R.id.edtUserId)
+        usernameEditText = view.findViewById(R.id.edtUsername)
+        phoneEditText = view.findViewById(R.id.edtPhone)
+    }
+
+    private fun handleUser(view: View) {
+        addUserButton = view.findViewById(R.id.btnAddUser)
         addUserButton.setOnClickListener {
             val userId = userIdEditText.text.toString()
             val username = usernameEditText.text.toString()
@@ -37,9 +52,7 @@ class AddUserDetailFragment : Fragment() {
 
             addUserViewModel.validateUser(userId, username, phone) { isSuccess ->
                 if (isSuccess) {
-                    userIdEditText.text.clear()
-                    usernameEditText.text.clear()
-                    phoneEditText.text.clear()
+                    clearText()
                     Toast.makeText(context, "User Added", Toast.LENGTH_SHORT).show()
                     (activity as? MainActivity)?.loadFragment(ViewUserDetailFragment())
                 } else {
@@ -47,6 +60,11 @@ class AddUserDetailFragment : Fragment() {
                 }
             }
         }
-        return view
+    }
+
+    private fun clearText() {
+        userIdEditText.text.clear()
+        usernameEditText.text.clear()
+        phoneEditText.text.clear()
     }
 }

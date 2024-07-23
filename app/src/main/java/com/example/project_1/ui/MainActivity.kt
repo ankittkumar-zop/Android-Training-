@@ -9,10 +9,6 @@ import androidx.fragment.app.Fragment
 import com.example.project_1.R
 import com.example.project_1.ui.viewUser.ViewUserDetailFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

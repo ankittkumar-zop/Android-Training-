@@ -13,13 +13,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ShowPostViewModel @Inject constructor(
-    private val postRepo: PostRepo) : ViewModel() {
+    private val postRepo: PostRepo
+) : ViewModel() {
 
     val posts: LiveData<List<ShowPostData>> = postRepo.liveData()
 
     fun fetchPost() {
         viewModelScope.launch {
-            val data = withContext(Dispatchers.IO) {
+            withContext(Dispatchers.IO) {
                 postRepo.fetchData()
             }
         }

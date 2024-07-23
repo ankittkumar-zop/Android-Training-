@@ -1,4 +1,3 @@
-// ShowPostFragment.kt
 package com.example.project_1.ui.showPost
 
 import android.os.Bundle
@@ -23,10 +22,10 @@ class ShowPostFragment : Fragment() {
 
     private lateinit var rvShowPost: RecyclerView
     private val showPostViewModel: ShowPostViewModel by viewModels()
+    private lateinit var postAdapter: PostAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.item_post, container, false)
     }
@@ -34,29 +33,43 @@ class ShowPostFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        rvShowPost = view.findViewById<RecyclerView>(R.id.recyclerViewLoadImage).apply {
-            layoutManager = LinearLayoutManager(requireContext())
+        initializeFragment(view)
+        settingRecyclerView()
+        observer()
+        clickListener(view)
+        fetchingPost()
+    }
+
+    private fun fetchingPost() {
+        lifecycleScope.launch {
+            showPostViewModel.fetchPost()
         }
+    }
 
-        val postAdapter = PostAdapter(requireContext(), emptyList()) { postId ->
-            showPostViewModel.toggleLike(postId)
-        }
-
-        rvShowPost.adapter = postAdapter
-
-        showPostViewModel.posts.observe(viewLifecycleOwner) { posts ->
-            val updatedPosts = posts.filter { it.title != null && it.url != null }
-            postAdapter.updateData(updatedPosts)
-        }
-
+    private fun clickListener(view: View) {
         val homeButtonItemPost: Button = view.findViewById(R.id.btnHome)
         homeButtonItemPost.setOnClickListener {
             val mainActivity = activity as? MainActivity
             mainActivity?.loadFragment(ViewUserDetailFragment())
         }
+    }
 
-        lifecycleScope.launch {
-            showPostViewModel.fetchPost()
+    private fun observer() {
+        showPostViewModel.posts.observe(viewLifecycleOwner) { posts ->
+            val updatedPosts = posts.filter { it.title != null && it.url != null }
+            postAdapter.updateData(updatedPosts)
         }
+    }
+
+    private fun settingRecyclerView() {
+        postAdapter = PostAdapter(requireContext(), emptyList()) { postId ->
+            showPostViewModel.toggleLike(postId)
+        }
+        rvShowPost.layoutManager = LinearLayoutManager(requireContext())
+        rvShowPost.adapter = postAdapter
+    }
+
+    private fun initializeFragment(view: View) {
+        rvShowPost = view.findViewById(R.id.recyclerViewLoadImage)
     }
 }
