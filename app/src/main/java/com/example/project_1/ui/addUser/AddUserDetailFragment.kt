@@ -23,7 +23,6 @@ class AddUserDetailFragment : Fragment() {
     private lateinit var phoneEditText: EditText
     private lateinit var addUserButton: Button
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {

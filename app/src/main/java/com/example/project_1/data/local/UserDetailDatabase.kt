@@ -12,7 +12,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 
 @Database(
     entities = [UserDetailData::class, ShowPostData::class],
-    version = 8,
+    version = 9,
     exportSchema = false
 )
 abstract class UserDetailDatabase : RoomDatabase() {

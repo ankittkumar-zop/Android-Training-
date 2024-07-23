@@ -9,8 +9,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class PostRepo @Inject constructor(
-    private val apiCall: ApiCall,
-    private val showPostDao: ShowPostDao
+    private val apiCall: ApiCall, private val showPostDao: ShowPostDao
 ) {
 
     fun liveData(): LiveData<List<ShowPostData>> = showPostDao.getAllPost()

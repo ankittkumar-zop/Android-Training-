@@ -54,6 +54,7 @@ class ViewUserDetailFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
+
         rvAdapter = UserAdapter(emptyList(), onDeleteClick = { userId ->
             viewUserViewModel.deleteUserById(userId)
             loadUserData()
