@@ -5,11 +5,10 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class ShowPostData(
-
     @PrimaryKey(autoGenerate = true)
     var postId: Int,
+    var title: String?,
     var url: String?,
     var id: Int?,
-    var isLiked: Boolean = false,
-    val title: String?,
+    var isLiked: Boolean = false
 )

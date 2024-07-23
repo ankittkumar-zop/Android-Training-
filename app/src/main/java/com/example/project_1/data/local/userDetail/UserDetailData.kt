@@ -8,4 +8,5 @@ data class UserDetailData(
     @PrimaryKey
     var userId: String,
     var name: String,
-    var phone: String)
+    var phone: String
+)
