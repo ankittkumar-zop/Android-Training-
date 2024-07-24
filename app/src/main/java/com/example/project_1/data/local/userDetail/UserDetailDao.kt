@@ -1,5 +1,6 @@
 package com.example.project_1.data.local.userDetail
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -12,7 +13,7 @@ interface UserDetailDao {
     suspend fun insertUserDetail(userDetail: UserDetailData)
 
     @Query("SELECT * FROM user_detail_table")
-    suspend fun getDetails(): List<UserDetailData>
+    fun getDetails(): LiveData<List<UserDetailData>>
 
     @Query("DELETE FROM user_detail_table WHERE userId = :userId")
     suspend fun deleteUser(userId: String)
